@@ -1,0 +1,62 @@
+# Coolify deployment configuration
+# This file helps Coolify understand how to deploy your application
+
+# Application configuration
+app:
+  name: rural-women-rising
+  type: docker
+  dockerfile: Dockerfile
+
+# Build configuration
+build:
+  # Build arguments
+  args:
+    NODE_ENV: production
+
+  # Build context
+  context: .
+
+# Runtime configuration
+runtime:
+  # Port the application listens on
+  port: 3000
+
+  # Health check endpoint
+  healthcheck:
+    path: /api/health
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 40s
+
+  # Environment variables (these will be set in Coolify UI)
+  environment:
+    - NODE_ENV=production
+    - PORT=3000
+    - NEXT_TELEMETRY_DISABLED=1
+    - DATABASE_URL=file:/app/data/production.db
+    # NEXTAUTH_SECRET will be set via Coolify's secrets
+
+# Storage configuration for SQLite persistence
+storage:
+  # Persistent volume for SQLite database
+  volumes:
+    - name: sqlite-data
+      mount_path: /app/data
+      size: 1Gi
+
+# Resource requirements
+resources:
+  # Minimum requirements
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  requests:
+    memory: 256Mi
+    cpu: 250m
+
+# Deployment strategy
+deployment:
+  strategy: rolling
+  max_unavailable: 0
+  max_surge: 1
