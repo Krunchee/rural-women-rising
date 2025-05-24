@@ -12,7 +12,7 @@
     "db:migrate": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate || echo 'Prisma generate skipped'"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
