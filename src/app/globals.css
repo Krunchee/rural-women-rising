@@ -44,6 +44,19 @@ img {
   height: auto;
 }
 
+/* Mobile menu overlay - ensure full screen coverage */
+.mobile-menu-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
 /* Mobile-specific fixes */
 @media (max-width: 768px) {
   body {
@@ -53,5 +66,10 @@ img {
   /* Ensure no horizontal scroll */
   * {
     max-width: 100%;
+  }
+
+  /* Override for mobile menu */
+  .mobile-menu-overlay {
+    max-width: none !important;
   }
 }
